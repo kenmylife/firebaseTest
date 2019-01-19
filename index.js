@@ -44,7 +44,8 @@ function post() {
       if (error) {
         alert(error);
       } else {
-        alert("ok");
+        document.getElementById("content").value = ""; //發文成功後清空輸入框
+        read(); //發文成功的時候，便讀取資料
       }
     }
   );
@@ -70,6 +71,7 @@ function show(data) {
     list.innerHTML =
       message.name.bold() + " " + message.content + "<hr/>" + list.innerHTML;
   }
+  // bold() CssStyle 加粗體
 }
 
 //網頁載入完成後做一些處理
