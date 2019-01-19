@@ -33,7 +33,7 @@ function signIn() {
 let db = firebase.database();
 
 function post() {
-  let id = currentUser.userid;
+  let id = currentUser.uid;
   let name = currentUser.displayName;
   let content = document.getElementById("content");
   //加入資料庫
