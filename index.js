@@ -38,7 +38,7 @@ function post() {
   let content = document.getElementById("content").value;
   //加入資料庫
   let ref = db.ref("/message");
-  ref.push(
+  ref.set(
     { id: id, name: name, content: content, time: Date.now() }, //Date.now()另一種取得時間的方式
     function(error) {
       if (error) {
