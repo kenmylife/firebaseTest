@@ -57,9 +57,12 @@ function read() {
     //注意此snapshots，為複數
     let data = [];
     snapshots.forEach(function(snapshot) {
-      data.push(snapshot.val());
+      //snapshot 物件為firebase包裝後的物件，不只有data還有其他資訊
+      let message = snapshot.val(); //取得資料data裝進變數
+      message.key = snapshot.key; //取得資料的key
+      data.push(message);
     });
-    show(data);
+    show(data); //讀取資料後展示資料到DOM
   });
 }
 function show(data) {
@@ -68,10 +71,46 @@ function show(data) {
   let message;
   for (let i = 0; i < data.length; i++) {
     message = data[i];
-    list.innerHTML =
-      message.name.bold() + " " + message.content + "<hr/>" + list.innerHTML;
+    if (currentUser === null) {
+      //代表使用者沒有登入
+      list.innerHTML =
+        message.name.bold() + " " + message.content + "<hr/>" + list.innerHTML;
+    } else {
+      //使用者有登入
+      if (currentUser.uid === message.id) {
+        //代表和留言的作者是同一個人
+        list.innerHTML =
+          message.name.bold() +
+          " " +
+          message.content +
+          "<button onclick='del(\"" +
+          message.key +
+          "\");'>Delete</button>" +
+          "<hr/>" +
+          list.innerHTML;
+      } else {
+        //和留言作者不同人
+        list.innerHTML =
+          message.name.bold() +
+          " " +
+          message.content +
+          "<hr/>" +
+          list.innerHTML;
+      }
+    }
   }
-  // bold() CssStyle 加粗體
+  // bold()， CssStyle 加粗體
+}
+
+function del(key) {
+  let ref = db.ref("/message/" + key);
+  ref.remove(function(error) {
+    if (error) {
+      alert(error);
+    } else {
+      alert("ok");
+    }
+  });
 }
 
 //網頁載入完成後做一些處理
