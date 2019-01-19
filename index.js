@@ -37,7 +37,7 @@ function post() {
   let name = currentUser.displayName;
   let content = document.getElementById("content").value;
   //加入資料庫
-  let ref = db.ref("/message");
+  let ref = db.ref("./message");
   ref.push(
     { id: id, name: name, content: content, time: Date.now() }, //Date.now()另一種取得時間的方式
     function(error) {
@@ -49,3 +49,30 @@ function post() {
     }
   );
 }
+
+function read() {
+  let ref = db.ref("/message");
+  ref.once("value", function(snapshots) {
+    //注意此snapshots，為複數
+    let data = [];
+    snapshots.forEach(function(snapshot) {
+      data.push(snapshot.val());
+    });
+    show(data);
+  });
+}
+function show(data) {
+  let list = document.getElementById("list");
+  list.innerHTML = "";
+  let message;
+  for (let i = 0; i < data.length; i++) {
+    message = data[i];
+    list.innerHTML =
+      message.name.bold() + " " + message.content + "<hr/>" + list.innerHTML;
+  }
+}
+
+//網頁載入完成後做一些處理
+window.addEventListener("load", function() {
+  read();
+});
