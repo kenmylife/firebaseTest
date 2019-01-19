@@ -21,18 +21,19 @@
   </head>
   <body>
     <div style="text-align:center">
-    <h3>Message Board</h3>
-    <div id="welcome" style="display:none">
-      <button onclick="signIn();">Sign in</button>
+      <h3>Message Board</h3>
+      <div id="welcome" style="display:none">
+        <button onclick="signIn();">Sign in</button>
+      </div>
+      <div id="member" style="display:none">
+        <textarea id="content">
+          <button onclick="post();">貼文</button>
+        </textarea>
+      </div>
+      <hr />
+      <div id="list"></div>
     </div>
-    <div id="member" style="display:none">
-      <textarea id="content" cols="30" rows="10">
-      </textarea>
-      <button onclick="post();">貼文</button>
-    </div>
-    <hr />
-    <div id="list">Message List</div>
-    </div>
+
     <script text="text/javascript" src="index.js"></script>
   </body>
 </html>
