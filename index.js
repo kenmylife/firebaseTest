@@ -37,14 +37,15 @@ function post() {
   let name = currentUser.displayName;
   let content = document.getElementById("content");
   //加入資料庫
-  let ref = db.ref("./mageges");
-  ref.push({ id: id, name: name, content: content, time: Date.now() }, function(
-    error
-  ) {
-    if (error) {
-      alert(error);
-    } else {
-      alert("ok");
+  let ref = db.ref("/mageges");
+  ref.push(
+    { id: id, name: name, content: content, time: Date.now() }, //Date.now()另一種取得時間的方式
+    function(error) {
+      if (error) {
+        alert(error);
+      } else {
+        alert("ok");
+      }
     }
-  });
+  );
 }
