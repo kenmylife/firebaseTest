@@ -79,7 +79,8 @@ function show(data) {
       //使用者有登入
       if (currentUser.uid === message.id) {
         //代表和留言的作者是同一個人
-        alert("本人");
+        //alert("本人");
+        console.log("本人");
         list.innerHTML =
           message.name.bold() +
           " " +
